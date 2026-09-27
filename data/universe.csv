@@ -1,0 +1,31 @@
+ticker,company_name,sector,industry,exchange,shares_outstanding,float_factor,float_market_cap
+ALFA,Alpha Technologies,Technology,Software,NASDAQ,1179814093,0.561,92963498171.27
+BRVO,Bravo Systems,Technology,Semiconductors,NASDAQ,1346730488,0.834,474195565685.78
+CYGN,Cygnus Digital,Technology,IT Services,NYSE,805705530,0.563,51861303255.9
+DRVN,Driven Motors,Consumer Discretionary,Automobiles,NYSE,125641868,0.634,24271526429.79
+ELMT,Element Retail,Consumer Discretionary,Retail,NYSE,459157870,0.797,133132773931.63
+FLUX,Flux Energy,Energy,Oil & Gas,NYSE,1466009113,0.843,209874300448.25
+GRIT,Grit Mining,Materials,Metals & Mining,NYSE,1726406484,0.691,80412197166.15
+HARB,Harbor Bank,Financials,Banks,NYSE,1537690310,0.804,432041956450.97
+IVRY,Ivory Finance,Financials,Financial Services,NASDAQ,1002312317,0.959,179899861562.19
+JUNO,Juno Health,Health Care,Health Care Equipment,NYSE,1518829875,0.81,476407693265.66
+KITE,Kite Pharma,Health Care,Biotechnology,NASDAQ,1291863558,0.569,89428461014.7
+LUMA,Luma Foods,Consumer Staples,Food Products,NYSE,217242200,0.648,9658715400.09
+MESA,Mesa Beverages,Consumer Staples,Beverages,NYSE,1173377244,0.703,152213749700.67
+NOVA,Nova Telecom,Communication Services,Telecom,NASDAQ,539201854,0.943,156637782447.67
+ORBT,Orbit Media,Communication Services,Media,NASDAQ,374358475,0.856,29955471894.99
+PRSM,Prism Utilities,Utilities,Electric Utilities,NYSE,1781980163,0.819,379805854299.43
+QUAD,Quad Water,Utilities,Water Utilities,NYSE,1529705303,0.876,166331010043.35
+RIVR,River Real Estate,Real Estate,REITs,NYSE,622579243,0.662,46087965014.13
+SOLR,Solaris Properties,Real Estate,REITs,NYSE,1587352318,0.682,325982866936.69
+TRAX,Trax Logistics,Industrials,Transportation,NYSE,1653021854,0.743,168306046710.05
+UNIT,Unity Aerospace,Industrials,Aerospace,NYSE,1045553191,0.66,184333811313.13
+VCTR,Vector Defense,Industrials,Aerospace & Defense,NYSE,766968869,0.642,216606434803.37
+WAVE,Wave Manufacturing,Industrials,Machinery,NYSE,236364189,0.57,9652043123.42
+XENO,Xeno Chemicals,Materials,Chemicals,NYSE,1453236065,0.727,54507736065.32
+YARD,Yard Construction,Industrials,Construction,NYSE,1793328774,0.772,618347945460.6
+ZETA,Zeta Insurance,Financials,Insurance,NYSE,99747358,0.853,25868754763.0
+AERO,Aero Networks,Technology,IT Services,NASDAQ,538939327,0.819,31848735247.77
+BETA,Beta Electronics,Technology,Hardware,NASDAQ,860404775,0.951,325901169762.27
+CAPE,Cape Consumer,Consumer Discretionary,Retail,NYSE,941008114,0.625,239799967957.7
+DOME,Dome Health,Health Care,Pharmaceuticals,NYSE,593325041,0.818,136619234771.52

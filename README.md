@@ -8,4 +8,16 @@ The project allows users to select securities, choose a weighting methodology, s
 
 ## Project Status
 
-Initial project setup.
+Dummy financial datasets included.
+
+## Data
+
+The project uses synthetic dummy financial data.
+
+### Universe
+
+Contains 30 companies with columns such as ticker, company name, sector, and float market capitalization.
+
+### Prices
+
+Contains daily closing prices for the companies across a consistent time period with columns such as date, ticker, closing price
