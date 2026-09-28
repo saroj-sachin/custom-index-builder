@@ -188,7 +188,7 @@ if generate:
 
     # Weights
 
-    st.subheader("Constituent Weights")
+    st.subheader("Weight Distribution")
 
     weight_display = (
         selected_universe[
@@ -206,4 +206,80 @@ if generate:
             }
         ),
         use_container_width=True,
+    )
+
+    # Calculation integrity check
+
+    reconciliation_ok = (index_calculator.validate_reconciliation(index_data,detail_data,))
+
+    st.subheader("Calculation Validation")
+
+    if abs(weights.sum() - 1.0) < 1e-10:
+        st.success("Constituent weights sum to 100%.")
+    else:
+        st.error("Constituent weights do not sum to 100%.")
+
+    if reconciliation_ok:
+        st.success("Index return reconciles to the sum of constituent contributions.")
+    else:
+        st.error("Index return reconciliation failed.")
+
+    st.info(
+        "Price Return Index: dividends are not reinvested. "
+        "Weights are fixed for the selected calculation period."
+    )
+
+    # Final Day Contribution
+    
+    st.subheader("Latest-Day Constituent Contributions")
+
+    latest_date = detail_data["date"].max()
+
+    contribution_table = (
+        detail_data[
+            detail_data["date"] == latest_date
+        ][
+            ["ticker", "weight", "daily_return", "contribution"]
+        ]
+        .sort_values("contribution", ascending=False)
+        .reset_index(drop=True)
+    )
+
+    st.caption(
+        f"Contribution analysis for {latest_date:%Y-%m-%d}"
+    )
+
+    st.dataframe(
+        contribution_table.style.format(
+            {
+                "weight": "{:.2%}",
+                "daily_return": "{:.2%}",
+                "contribution": "{:.4%}",
+            }
+        ),
+        use_container_width=True,
+    )
+
+    # Warnings specific to this run
+
+    st.subheader("Run Validation")
+
+    duplicate_count = int(
+        prices[
+            prices["ticker"].isin(selected_tickers)
+        ].duplicated(["date", "ticker"]).sum()
+    )
+
+    if duplicate_count:
+        st.warning(
+            f"{duplicate_count} duplicate selected price row(s) were found "
+            "in the source data. The calculation keeps the first "
+            "observation for each date/ticker."
+        )
+    else:
+        st.success("No duplicate selected price observations.")
+
+    st.success(
+        f"Generated using {len(selected_tickers)} constituent(s), "
+        f"{weighting_method.lower()}, and {len(index_data)} index dates."
     )
