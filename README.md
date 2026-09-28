@@ -94,6 +94,53 @@ Display results and validation
 
 ---
 
+# How to Run Locally
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/saroj-sachin/custom-index-builder.git
+cd custom-index-builder
+```
+
+## 2. Create a virtual environment
+
+### Windows
+
+```bash
+python -m venv .venv
+.venv\\Scripts\\activate
+```
+
+### macOS / Linux
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+## 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## 4. Run the tests
+
+```bash
+pytest -q
+```
+
+## 5. Start the Streamlit application
+
+```bash
+streamlit run app.py
+```
+
+Streamlit will provide a local URL that can be opened in a web browser.
+
+---
+
 # Architecture
 
 The application separates the user interface from the analytical logic.
@@ -263,52 +310,5 @@ For duplicate `(date, ticker)` records, the calculation uses the first observati
 - More extensive automated tests
 - Automated data-quality monitoring
 - Production deployment and access controls
-
----
-
-# How to Run Locally
-
-## 1. Clone the repository
-
-```bash
-git clone https://github.com/saroj-sachin/custom-index-builder.git
-cd custom-index-builder
-```
-
-## 2. Create a virtual environment
-
-### Windows
-
-```bash
-python -m venv .venv
-.venv\\Scripts\\activate
-```
-
-### macOS / Linux
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-## 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-## 4. Run the tests
-
-```bash
-pytest -q
-```
-
-## 5. Start the Streamlit application
-
-```bash
-streamlit run app.py
-```
-
-Streamlit will provide a local URL that can be opened in a web browser.
 
 ---
