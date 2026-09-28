@@ -2,7 +2,9 @@
 
 A Python-based web application that allows users to build and analyze a custom **equity Price Return Index** from a predefined universe of 30 dummy stocks.
 
-<img src="app_overview.png">
+Live Application: https://index-builder.streamlit.app/
+
+<img src="app_overview.png">  
 
 This project was created as an analytical exercise for an **Index Engineering** apprenticeship application. The focus is on financial-data analysis, index calculations, validation, Python, and a simple browser-based user interface.
 
