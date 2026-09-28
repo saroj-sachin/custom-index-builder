@@ -97,3 +97,60 @@ with st.sidebar:
         type="primary",
         use_container_width=True,
     )
+
+# Validation before calculation
+
+if generate:
+    selection_report = validator.validate_selection(
+        universe=universe,
+        prices=prices,
+        selected_tickers=selected_tickers,
+        start_date=start_date,
+        end_date=end_date,
+    )
+
+    if selection_report.errors:
+        st.subheader("Validation")
+
+        for error in selection_report.errors:
+            st.error(error)
+        st.stop()
+
+    prepared_prices = validator.prepare_prices_for_calculation(
+        universe, prices
+    )
+
+    # Calculate weights
+    selected_universe = universe[
+        universe["ticker"].isin(selected_tickers)
+    ].copy()
+
+    try:
+        if weighting_method == "Equal Weight":
+            weights = weight_calculator.equal_weight(
+                selected_universe
+            )
+        else:
+            weights = weight_calculator.float_market_cap_weight(
+                selected_universe
+            )
+
+        weight_calculator.validate_weights(weights)
+
+        # Calculate the index
+        index_data, detail_data = index_calculator.calculate(
+            price_data=prepared_prices,
+            weights=weights,
+            start_date=start_date,
+            end_date=end_date,
+            base_level=base_level,
+        )
+
+    except ValueError as exc:
+        st.subheader("Validation")
+        st.error(str(exc))
+        st.stop()
+
+    summary = index_calculator.summarize(
+        index_data, base_level=base_level
+    )
