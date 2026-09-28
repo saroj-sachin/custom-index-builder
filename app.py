@@ -253,7 +253,7 @@ if generate:
 
     # Final Day Contribution
 
-    st.subheader("Latest-Day Constituent Contributions")
+    st.subheader("Latest-Day Constituent Analysis")
 
     latest_date = detail_data["date"].max()
 
