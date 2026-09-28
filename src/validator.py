@@ -224,4 +224,8 @@ class DataValidator:
             .drop_duplicates(["date", "ticker"], keep="first")
             .reset_index(drop=True)
         )
+<<<<<<< HEAD
         return prepared
+=======
+        return prepared
+>>>>>>> feature/streamlit-ui
