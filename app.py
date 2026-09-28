@@ -98,6 +98,28 @@ with st.sidebar:
         use_container_width=True,
     )
 
+# Raw data quality summary
+
+raw_report = validator.validate(universe, prices)
+
+with st.expander("Source Data Validation", expanded=False):
+    if raw_report.errors:
+        for error in raw_report.errors:
+            st.error(error)
+    else:
+        st.success("No blocking structural data errors found.")
+
+    for warning in raw_report.warnings:
+        st.warning(warning)
+
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Universe", f"{universe['ticker'].nunique()} stocks")
+    c2.metric("Price rows", f"{len(prices):,}")
+    c3.metric(
+        "Available dates",
+        f"{prices['date'].min().date()} → {prices['date'].max().date()}",
+    )
+
 # Validation before calculation
 
 if generate:
@@ -230,7 +252,7 @@ if generate:
     )
 
     # Final Day Contribution
-    
+
     st.subheader("Latest-Day Constituent Contributions")
 
     latest_date = detail_data["date"].max()
@@ -282,4 +304,29 @@ if generate:
     st.success(
         f"Generated using {len(selected_tickers)} constituent(s), "
         f"{weighting_method.lower()}, and {len(index_data)} index dates."
+    )
+
+# Default landing screen
+
+else:
+    st.info("Configure the index in the sidebar and click **Generate Index**."
+    )
+
+    st.subheader("How the Index Is Calculated")
+    st.markdown(
+        """
+        **1. Stock's Daily Return**
+
+        `return = close(t) / close(t-1) - 1`
+
+        **2. Weighted Index Return**
+
+        `index_return = sum(weight × constituent_return)`
+
+        **3. Index Level**
+
+        `level(t) = level(t-1) × (1 + index_return)`
+
+        This calculation is **Price Return only** and does not reinvest dividends.
+        """
     )
