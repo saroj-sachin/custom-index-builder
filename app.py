@@ -154,3 +154,56 @@ if generate:
     summary = index_calculator.summarize(
         index_data, base_level=base_level
     )
+
+    # Results
+
+    st.subheader("Index Results")
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    col1.metric(
+        "Current Index Level",
+        f"{summary['final_level']:.2f}",
+    )
+    col2.metric(
+        "Cumulative Return",
+        f"{summary['cumulative_return']:.2%}",
+    )
+    col3.metric(
+        "Best Day",
+        f"{summary['best_day']:.2%}",
+    )
+    col4.metric(
+        "Worst Day",
+        f"{summary['worst_day']:.2%}",
+    )
+
+    # Index chart
+    st.subheader("Price Return Index")
+
+    st.line_chart(
+        index_data.set_index("date")["index_level"],
+        height=400,
+    )
+
+    # Weights
+
+    st.subheader("Constituent Weights")
+
+    weight_display = (
+        selected_universe[
+            ["ticker", "company_name", "sector", "float_market_cap"]
+        ]
+        .set_index("ticker")
+        .join(weights.rename("weight"))
+        .sort_values("weight", ascending=False)
+        )
+    st.dataframe(
+        weight_display.style.format(
+            {
+                "float_market_cap": "{:,.0f}",
+                "weight": "{:.2%}",
+            }
+        ),
+        use_container_width=True,
+    )
