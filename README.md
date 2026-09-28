@@ -128,7 +128,7 @@ pip install -r requirements.txt
 ## 4. Run the tests
 
 ```bash
-pytest -q
+python -m pytest -q
 ```
 
 ## 5. Start the Streamlit application
