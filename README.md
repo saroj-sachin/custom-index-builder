@@ -4,7 +4,7 @@ A Python-based web application that allows users to build and analyze a custom *
 
 Live Application: https://index-builder.streamlit.app/
 
-<img src="app_overview.png">  
+<img src="app_overview.gif">  
 
 This project was created as an analytical exercise for an **Index Engineering** apprenticeship application. The focus is on financial-data analysis, index calculations, validation, Python, and a simple browser-based user interface.
 
@@ -70,7 +70,20 @@ The application displays:
 
 ---
 
-# How the Application Works
+## Technology Stack
+
+| Component | Technology |
+|---|---|
+| Programming Language | Python |
+| Web UI | Streamlit |
+| Data Processing | pandas |
+| Numerical Analysis | NumPy |
+| Data Storage | CSV |
+| Version Control | Git / GitHub |
+
+---
+
+## How the Application Works
 
 The application follows a simple workflow:
 
@@ -96,44 +109,44 @@ Display results and validation
 
 ---
 
-# How to Run Locally
+## How to Run Locally
 
-## 1. Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/saroj-sachin/custom-index-builder.git
 cd custom-index-builder
 ```
 
-## 2. Create a virtual environment
+### 2. Create a virtual environment
 
-### Windows
+**Windows**
 
 ```bash
 python -m venv .venv
 .venv\\Scripts\\activate
 ```
 
-### macOS / Linux
+**macOS / Linux**
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 ```
 
-## 3. Install dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 4. Run the tests
+### 4. Run the tests
 
 ```bash
 python -m pytest -q
 ```
 
-## 5. Start the Streamlit application
+### 5. Start the Streamlit application
 
 ```bash
 streamlit run app.py
@@ -143,7 +156,7 @@ Streamlit will provide a local URL that can be opened in a web browser.
 
 ---
 
-# Architecture
+## Architecture
 
 The application separates the user interface from the analytical logic.
 
@@ -169,9 +182,9 @@ Calculates stock returns, weighted index returns, index levels, summary metrics,
 
 ---
 
-# Data
+## Data
 
-## Universe Data
+### Universe Data
 
 `data/universe.csv` contains 30 dummy securities and fields including:
 
@@ -184,7 +197,7 @@ Calculates stock returns, weighted index returns, index levels, summary metrics,
 - float factor
 - float market capitalization
 
-## Price Data
+### Price Data
 
 `data/prices.csv` contains daily closing-prices with:
 
@@ -198,83 +211,59 @@ The sample data also contain a small number of intentional data-quality issues s
 
 ---
 
-# Index Methodology
+## Index Methodology
 
-## 1. Stock Daily Return
+### 1. Stock Daily Return
 
 For each security, the daily return is calculated as:
 
-\[
+$$
 r_i(t) = \frac{Close_i(t)}{Close_i(t-1)} - 1
-\]
+$$
 
-In Python, this is calculated separately for each ticker using pandas `groupby()` and `pct_change()`.
+In Python, this is calculated separately for each ticker using
+pandas `groupby()` and `pct_change()`.
 
-The calculation is performed on the chronological price history before applying the user's selected date range. This allows the first selected date to use its previous available price when calculating returns.
+### 2. Equal Weight
 
+If $N$ securities are selected:
 
-## 2. Equal Weight
-
-If `N` securities are selected:
-
-\[
+$$
 w_i = \frac{1}{N}
-\]
+$$
 
 For example, if 5 securities are selected:
 
-\[
+$$
 w_i = 20\%
-\]
+$$
 
+### 3. Float Market-Cap Weight
 
-## 3. Float Market-Cap Weight
-
-The float market-cap weighting method is:
-
-\[
+$$
 w_i =
 \frac{FMC_i}
-{\sum_{j=1}^{N}FMC_j}
-\]
+{\sum_{j=1}^{N} FMC_j}
+$$
 
-where `FMC` represents float-adjusted market capitalization.
+### 4. Daily Index Return
 
-The application validates that the final weights sum to 100%.
-
-## 4. Daily Index Return
-
-The daily index return is calculated as:
-
-\[
+$$
 r_{index}(t) = \sum_i w_i r_i(t)
-\]
+$$
 
-The contribution of each constituent is:
+### 5. Index Level
 
-\[
-Contribution_i(t) = w_i r_i(t)
-\]
+Starting from a base level such as 100:
 
-The sum of constituent contributions should equal the calculated index return.
-
-
-## 5. Index Level
-
-The index starts from a user-selected base level, with **100** as the default.
-
-The index level is then compounded:
-
-\[
+$$
 Level(t) =
-Level(t-1)\times(1+r_{index}(t))
-\]
-
-The first displayed date is treated as the base date, so the generated index starts at the selected base level.
+Level(t-1) \times (1+r_{index}(t))
+$$
 
 ---
 
-# Missing Data Handling
+## Missing Data Handling
 
 The application uses a strict approach for selected constituents.
 
@@ -286,11 +275,9 @@ If a selected security has a missing closing price during the requested calculat
 
 This avoids creating an artificial return from an imputed price.
 
-For duplicate `(date, ticker)` records, the calculation uses the first observation deterministically and reports the duplicate as a warning.
-
 ---
 
-# Limitations
+## Limitations
 
 - Synthetic rather than live market data
 - CSV-based data storage
@@ -298,19 +285,16 @@ For duplicate `(date, ticker)` records, the calculation uses the first observati
 - No corporate-action processing
 - No scheduled rebalancing
 - Price Return only
-- No production data-feed integration
 
 ---
 
-# Future Improvements
+## Future Improvements
 
 - Live or production-quality market-data ingestion
 - Database or data-platform integration
 - Corporate-action processing
 - Scheduled rebalancing
 - Additional weighting methodologies
-- More extensive automated tests
 - Automated data-quality monitoring
-- Production deployment and access controls
 
 ---
